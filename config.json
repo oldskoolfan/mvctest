@@ -1,0 +1,5 @@
+{
+	"BudgetDbProvider": {
+		"ConnectionString": "Host=localhost;Username=postgres;Password=welcome1;Database=budgetdb;"
+	}
+}
