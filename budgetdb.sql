@@ -197,16 +197,6 @@ ALTER TABLE ONLY incomes ALTER COLUMN income_id SET DEFAULT nextval('incomes_inc
 
 
 --
--- Data for Name: accounts; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY accounts (account_id, nickname, account_type, balance, created_date) FROM stdin;
-1	primary checking	checking	1500.00	2016-07-05 20:08:24.043782
-2	primary savings	savings	500.00	2016-07-07 14:16:28.247623
-\.
-
-
---
 -- Name: accounts_account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -214,28 +204,10 @@ SELECT pg_catalog.setval('accounts_account_id_seq', 2, true);
 
 
 --
--- Data for Name: bills; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY bills (bill_id, nickname, recurrences, pay_schedule, amount_per_statement, recurring_date, created_date) FROM stdin;
-\.
-
-
---
 -- Name: bills_bill_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('bills_bill_id_seq', 1, false);
-
-
---
--- Data for Name: incomes; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY incomes (income_id, nickname, recurrences, pay_schedule, amount_per_paycheck, recurring_date, created_date) FROM stdin;
-1	workstate	\N	bimonthly	2800.00	\N	2016-07-07 15:00:37.571824
-2	cscc	\N	bimonthly	410.00	\N	2016-07-07 15:00:57.653571
-\.
 
 
 --
