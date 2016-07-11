@@ -5,6 +5,8 @@ namespace mvctest.Models
 	[Table("accounts")]
 	public class Account
 	{
+		private string _acctType;
+
 		[Column("account_id")]
 		public int AccountID { get; set; }
 

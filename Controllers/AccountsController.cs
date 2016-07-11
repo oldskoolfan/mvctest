@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using mvctest.Models;
 using mvctest.DAL;
@@ -31,8 +33,15 @@ namespace mvctest.Controllers
 
 		// POST api/values
 		[HttpPost]
-		public void Post([FromBody]string value)
+		public IActionResult Post([FromBody]Account account)
 		{
+			if (ModelState.IsValid) {
+				_dataAccessProvider.AddAccount(account);
+				return Created(Path.Combine(Request.Path, account.AccountID.ToString()), 
+					account);
+			} else {
+				return BadRequest();
+			}
 		}
 
 		// PUT api/values/5
@@ -45,6 +54,13 @@ namespace mvctest.Controllers
 		[HttpDelete("{id}")]
 		public void Delete(int id)
 		{
+		}
+
+		// views
+		[HttpGet("AddAccount")]
+		public IActionResult AddAccount()
+		{
+			return View();
 		}
 	}
 }

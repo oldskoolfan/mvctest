@@ -1,0 +1,24 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font: 1em normal Arial, sans-serif;
+}
+
+@media(min-width: 980px) {
+	main {
+		width: 60%; 
+	}
+}
+
+main {
+	margin: 4em auto;
+}
+
+/* forms */
+fieldset label {
+	display: block;
+	margin: 1em 0;
+}

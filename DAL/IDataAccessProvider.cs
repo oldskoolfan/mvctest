@@ -7,5 +7,6 @@ namespace mvctest.DAL
 	{
         List<Account> GetAccounts();
         List<Income> GetIncomes();
+        void AddAccount(Account acct);
     }
 }
