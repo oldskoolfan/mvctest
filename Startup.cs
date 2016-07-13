@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
+using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using mvctest.DAL;
 
@@ -46,11 +48,19 @@ namespace mvctest
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // SSL
+            // var certFile = Path.Combine(Directory.GetCurrentDirectory(), "server.crt");
+            // var cert = new X509Certificate2(certFile);
+            // app.UseKestrelHttps(cert);
+
+            // logging
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            // static files
             app.UseStaticFiles();
 
+            // default route
              app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -61,9 +71,17 @@ namespace mvctest
 
 		public static void Main(string[] args)
         {
+            var certFile = Path.Combine(Directory.GetCurrentDirectory(), "mycert.pfx");
+            var cert = new X509Certificate2(certFile, "welcome1");
             var host = new WebHostBuilder()
-                .UseKestrel()
+                .UseKestrel(options =>
+                {
+                    options.NoDelay = true;
+                    options.UseHttps(cert);
+                    options.UseConnectionLogging();
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseUrls("http://andrew-mbp:5000", "https://andrew-mbp:5001")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
